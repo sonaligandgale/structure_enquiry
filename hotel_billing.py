@@ -16,7 +16,6 @@ def calculate_bill(room_type, days):
 
 
 if __name__ == "__main__":
-    # Read from Jenkins environment variables
     name = os.getenv("CUSTOMER_NAME", "Guest")
     room_type = os.getenv("ROOM_TYPE", "standard")
     days = int(os.getenv("DAYS_STAYED", "1"))
@@ -24,12 +23,11 @@ if __name__ == "__main__":
     total_bill = calculate_bill(room_type, days)
 
     print("=== Hotel Room Billing System ===")
-    print("\n--- BILL DETAILS ---")
     print("Customer Name :", name)
     print("Room Type     :", room_type)
     print("Days Stayed   :", days)
 
     if total_bill == -1:
-        print("Invalid room type or days")
+        print("Invalid input")
     else:
-        print("Total Bill    : Rs.", total_bill)
+        print("Total Bill : Rs.", total_bill)
