@@ -1,26 +1,25 @@
 # Program to calculate hotel room bill
+import os
 
 def calculate_bill(room_type, days):
+    room_type = room_type.lower()
+
     if days <= 0:
         return -1
 
-    room_type = room_type.lower()
-
     if room_type == "standard":
-        rate = 1500
+        return 1500 * days
     elif room_type == "deluxe":
-        rate = 2500
+        return 2500 * days
     else:
         return -1
 
-    return rate * days
-
 
 if __name__ == "__main__":
-    
-    name = "Guest"
-    room_type = "standard"
-    days = 1
+    # Read from Jenkins environment variables
+    name = os.getenv("CUSTOMER_NAME", "Guest")
+    room_type = os.getenv("ROOM_TYPE", "standard")
+    days = int(os.getenv("DAYS_STAYED", "1"))
 
     total_bill = calculate_bill(room_type, days)
 
@@ -29,4 +28,8 @@ if __name__ == "__main__":
     print("Customer Name :", name)
     print("Room Type     :", room_type)
     print("Days Stayed   :", days)
-    print("Total Bill    : Rs.", total_bill)
+
+    if total_bill == -1:
+        print("Invalid room type or days")
+    else:
+        print("Total Bill    : Rs.", total_bill)
